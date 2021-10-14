@@ -1,0 +1,161 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Challenge 02 Documentation",
+    "description": "This is an Api for challenge 02",
+    "version": "1.0.0",
+    "contact": {
+      "email": "tiagosilva0922@gmail.com"
+    }
+  },
+  "paths": {
+    "/users" : {
+      "post": {
+        "tags":[ "Users"],
+        "summary": "Create a user",
+        "description": "create a new user",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                 "type": "object",
+                 "properties": {
+                  "name": {
+                  "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+               },
+               "example": {
+                "name": "Joao Teste",
+                "email": "example@email.com"
+              }
+             }
+            }
+          }
+        },
+
+        "responses": {
+          "201": {
+            "description" : "Created"
+          },
+          "400": {
+            "description": "Email already exists"
+          }
+        }
+      },
+      "get": {
+        "tags": ["Users"],
+        "summary": "List a users",
+        "description": "List all users, only Admins",
+        "parameters":[ {
+          "in": "header",
+          "name": "user_id",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                      "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}": {
+      "get": {
+        "tags": ["Users"],
+        "summary": "List a users",
+        "description": "List all users, only Admins",
+        "parameters":[{
+          "in": "header",
+          "name": "user_id",
+          "required": true,
+          "type": "string"
+        }],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                      "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "admin": {
+                        "type": "boolean"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "updated_at": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/{userId}/admin": {
+      "post": {
+        "tags":[ "Users"],
+        "summary": "Make the user admin",
+        "description": "Turn a new user as admin",
+        "parameters":[{
+          "in": "path",
+          "name": "user_id",
+          "required": true,
+          "type": "string"
+        }],
+
+
+        "responses": {
+          "200": {
+            "description" : "Sucess"
+          },
+          "404": {
+            "description": "User not found"
+          }
+        }
+      }
+    }
+  }
+}
